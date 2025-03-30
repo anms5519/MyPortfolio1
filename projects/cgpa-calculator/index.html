@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-dark"> <!-- Default to dark theme -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Élite CGPA Analyzer Suite</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts (e.g., Inter or Lexend) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --font-main: 'Lexend', sans-serif;
+            --transition-speed: 0.3s;
+            --border-radius-lg: 16px;
+            --border-radius-md: 10px;
+            --border-radius-sm: 6px;
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Light Theme Variables */
+        .theme-light {
+            --bg-primary: #f4f7fc;        /* Light Grayish Blue */
+            --bg-secondary: #ffffff;     /* White */
+            --bg-tertiary: #e9eff6;     /* Slightly darker light blue */
+            --text-primary: #1a202c;    /* Very Dark Gray/Blue */
+            --text-secondary: #4a5568;  /* Medium Gray */
+            --text-accent: #3a7bd5;     /* Primary Blue */
+            --accent-primary: #3a7bd5;  /* Primary Blue */
+            --accent-secondary: #00d2ff; /* Bright Cyan */
+            --accent-gradient: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            --border-color: #e2e8f0;     /* Light Gray */
+            --danger-color: #e53e3e;      /* Red */
+            --success-color: #38a169;     /* Green */
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --card-border: rgba(255, 255, 255, 0.5);
+            --input-bg: rgba(233, 239, 246, 0.8); /* Light bg-tertiary */
+             --shadow-color-base: rgba(50, 50, 93, 0.15);
+             --shadow-md: 0 5px 15px var(--shadow-color-base);
+             --shadow-lg: 0 15px 35px var(--shadow-color-base);
+
+        }
+
+        /* Dark Theme Variables */
+        .theme-dark {
+            --bg-primary: #121828;        /* Very Dark Blue */
+            --bg-secondary: #1a2238;     /* Dark Blue */
+            --bg-tertiary: #253053;     /* Medium Dark Blue */
+            --text-primary: #e2e8f0;    /* Light Gray */
+            --text-secondary: #a0aec0;  /* Medium Gray */
+            --text-accent: #23d997;     /* Bright Teal/Green */
+            --accent-primary: #23d997;  /* Bright Teal/Green */
+            --accent-secondary: #00aeff; /* Bright Blue */
+            --accent-gradient: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            --border-color: rgba(255, 255, 255, 0.1); /* Subtle White */
+            --danger-color: #ff6b6b;      /* Lighter Red */
+            --success-color: #54e093;     /* Lighter Green */
+            --card-bg: rgba(26, 34, 56, 0.75); /* Dark bg-secondary translucent */
+            --card-border: rgba(255, 255, 255, 0.1);
+            --input-bg: rgba(37, 48, 83, 0.8); /* Dark bg-tertiary translucent */
+             --shadow-color-base: rgba(0, 0, 0, 0.3);
+             --shadow-md: 0 8px 20px var(--shadow-color-base);
+             --shadow-lg: 0 15px 40px var(--shadow-color-base);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+             scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+             transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+             /* Subtle background pattern */
+             /* background-image: radial-gradient(circle at top left, rgba(255, 255, 255, 0.03), transparent 30%),
+                             radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.03), transparent 30%); */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
+        }
+
+        /* --- Header & Theme Toggle --- */
+         .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding-top: 1rem;
+            flex-wrap: wrap; /* Allow wrapping */
+            gap: 1rem; /* Space between items if wrapped */
+         }
+
+         .header-title {
+             text-align: left;
+         }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 2.8rem); /* Responsive font size */
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            margin-bottom: 0.3rem;
+            letter-spacing: -0.5px;
+        }
+        h1 i {
+            margin-right: 10px;
+             background: none; /* Override gradient for icon */
+            -webkit-text-fill-color: var(--accent-primary); /* Use solid color for icon */
+            text-fill-color: var(--accent-primary);
+        }
+
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            font-weight: 400;
+        }
+
+         .theme-switcher {
+             display: flex;
+             background-color: var(--bg-secondary);
+             border-radius: 50px;
+             padding: 5px;
+             box-shadow: var(--shadow-sm);
+             border: 1px solid var(--border-color);
+         }
+
+         .theme-switcher button {
+             background: none;
+             border: none;
+             color: var(--text-secondary);
+             padding: 8px 12px;
+             border-radius: 50px;
+             cursor: pointer;
+             transition: all var(--transition-speed) ease;
+             font-size: 1rem;
+         }
+
+         .theme-switcher button.active {
+             background: var(--accent-gradient);
+             color: #fff; /* Ensure text is readable on gradient */
+             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+         }
+          .theme-switcher button:not(.active):hover {
+              color: var(--text-primary);
+          }
+          .theme-switcher button i {
+              vertical-align: middle;
+          }
+
+        /* --- Cards (Glassmorphism) --- */
+        .card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px); /* Safari */
+            border-radius: var(--border-radius-lg);
+            padding: clamp(1.5rem, 4vw, 2.5rem); /* Responsive padding */
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--card-border);
+            transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+
+
+        /* --- Tabs --- */
+        .tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+             border: 1px solid var(--border-color);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            background-color: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--transition-speed) ease-in-out;
+            font-weight: 600;
+            font-size: 1.05rem;
+            border-bottom: 3px solid transparent;
+            position: relative;
+        }
+        .tab i { margin-right: 10px; }
+
+        .tab:hover {
+            color: var(--text-primary);
+        }
+
+        .tab.active {
+            color: var(--accent-primary);
+            background-color: var(--bg-tertiary);
+            border-bottom-color: var(--accent-primary);
+        }
+
+
+        .tab-content { display: none; }
+        .tab-content.active {
+            display: block;
+            animation: subtleFadeIn 0.5s ease-in-out forwards;
+         }
+
+         @keyframes subtleFadeIn {
+            from { opacity: 0.7; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+         }
+
+        /* --- Grading Scale & Target GPA --- */
+        .controls-section {
+             display: flex;
+             flex-wrap: wrap;
+             gap: 2rem;
+             margin-bottom: 2rem;
+             padding: 1.5rem;
+             background-color: var(--bg-secondary);
+             border-radius: var(--border-radius-md);
+              border: 1px solid var(--border-color);
+              box-shadow: var(--shadow-sm);
+        }
+        .control-group {
+             display: flex;
+             align-items: center;
+             gap: 0.8rem;
+             flex: 1 1 250px; /* Allow wrapping, base width 250px */
+        }
+         .control-group label {
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+            font-size: 0.95rem;
+         }
+         .control-group label i {
+             margin-right: 5px;
+             color: var(--accent-primary);
+         }
+         .control-group select, .control-group input[type="number"] {
+            width: auto; /* Adjust width automatically */
+            flex-grow: 1; /* Take remaining space */
+            padding: 0.7rem 1rem;
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--border-color);
+            background-color: var(--input-bg);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            min-width: 150px; /* Ensure minimum width */
+         }
+         .control-group select:focus, .control-group input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px rgba(var(--accent-primary-rgb), 0.2); /* Use RGB for box shadow */
+         }
+          /* Helper to set RGB variables based on hex */
+         .theme-light { --accent-primary-rgb: 58, 123, 213; }
+         .theme-dark { --accent-primary-rgb: 35, 217, 151; }
+
+
+        /* --- Semester Section --- */
+        .semester-section {
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            background: var(--bg-tertiary);
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+             transition: background-color var(--transition-speed) ease;
+        }
+
+        .semester-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h3 {
+            color: var(--accent-primary);
+            font-weight: 600;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+
+        /* --- Courses Table --- */
+        .courses-table-wrapper {
+            overflow-x: auto; /* Ensure horizontal scroll on small screens */
+             margin-bottom: 1.5rem;
+        }
+
+        .courses-table {
+            width: 100%;
+            min-width: 700px; /* Prevent excessive wrapping */
+            border-collapse: separate; /* Use separate for border-radius on cells */
+            border-spacing: 0 8px; /* Vertical spacing between rows */
+        }
+
+        .courses-table thead tr {
+             background-color: transparent; /* Header background handled by th */
+        }
+
+        .courses-table th {
+            padding: 1rem 1.2rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.8px;
+            border-bottom: 2px solid var(--border-color);
+             white-space: nowrap;
+        }
+         .courses-table th:first-child { border-top-left-radius: var(--border-radius-sm); }
+         .courses-table th:last-child { border-top-right-radius: var(--border-radius-sm); }
+         .courses-table th:nth-child(5) { text-align: center;} /* Action column */
+
+
+        .courses-table tbody tr {
+             background-color: var(--bg-secondary);
+             border-radius: var(--border-radius-sm);
+             box-shadow: var(--shadow-sm);
+             transition: transform 0.2s ease, box-shadow 0.2s ease;
+             border: 1px solid var(--border-color);
+        }
+         .courses-table tbody tr:hover {
+             transform: translateY(-2px);
+             box-shadow: var(--shadow-md);
+         }
+
+
+        .courses-table td {
+            padding: 1rem 1.2rem;
+            vertical-align: middle;
+             border: none; /* Borders handled by TR */
+             border-top: 1px solid var(--border-color); /* Need top border */
+        }
+         .courses-table td:first-child { border-left: 1px solid var(--border-color); border-top-left-radius: var(--border-radius-sm); border-bottom-left-radius: var(--border-radius-sm); }
+         .courses-table td:last-child { border-right: 1px solid var(--border-color); border-top-right-radius: var(--border-radius-sm); border-bottom-right-radius: var(--border-radius-sm); text-align: center; }
+         .courses-table tbody tr td { border-bottom: 1px solid var(--border-color); }
+
+
+        .courses-table input, .courses-table select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--border-color);
+            background-color: var(--input-bg);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: all var(--transition-speed) ease;
+            font-family: inherit;
+        }
+        .courses-table input[type="number"] { -moz-appearance: textfield; }
+        .courses-table input::-webkit-outer-spin-button,
+        .courses-table input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+        .courses-table input:focus, .courses-table select:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            background-color: var(--bg-secondary);
+             box-shadow: 0 0 0 2px rgba(var(--accent-primary-rgb), 0.2);
+        }
+         /* Validation Styles */
+        .courses-table input.invalid, .courses-table select.invalid {
+             border-color: var(--danger-color);
+             box-shadow: 0 0 0 2px rgba(var(--danger-color-rgb), 0.2);
+        }
+         .theme-light { --danger-color-rgb: 229, 62, 62; }
+         .theme-dark { --danger-color-rgb: 255, 107, 107; }
+
+         .validation-message {
+             font-size: 0.8rem;
+             color: var(--danger-color);
+             margin-top: 4px;
+             display: none; /* Hidden by default */
+         }
+         .invalid + .validation-message {
+             display: block;
+         }
+
+
+        /* --- Buttons --- */
+        .btn {
+            background: var(--accent-gradient);
+            color: #fff; /* White text on gradient */
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all var(--transition-speed) ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(var(--accent-primary-rgb), 0.3);
+             position: relative;
+             overflow: hidden;
+             z-index: 1;
+        }
+         /* Shine effect on hover */
+         .btn::before {
+             content: '';
+             position: absolute;
+             top: 0;
+             left: -100%;
+             width: 100%;
+             height: 100%;
+             background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+             transition: left 0.6s ease;
+              z-index: -1;
+         }
+         .btn:hover::before {
+             left: 100%;
+         }
+
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(var(--accent-primary-rgb), 0.4);
+        }
+        .btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(var(--accent-primary-rgb), 0.3);
+        }
+
+
+        .btn-secondary {
+             background: var(--bg-secondary);
+             color: var(--text-primary);
+             border: 1px solid var(--border-color);
+              box-shadow: var(--shadow-sm);
+        }
+         .btn-secondary:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+             box-shadow: 0 6px 12px rgba(var(--accent-primary-rgb), 0.2);
+         }
+          .btn-secondary:hover::before { display: none; } /* No shine for secondary */
+
+
+        .btn-danger {
+            background: transparent;
+            color: var(--danger-color);
+            padding: 0;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+             border: 1px solid var(--border-color);
+              box-shadow: none;
+        }
+        .btn-danger:hover {
+            background-color: rgba(var(--danger-color-rgb), 0.1);
+            color: var(--danger-color);
+             border-color: var(--danger-color);
+            transform: scale(1.1);
+             box-shadow: none;
+        }
+         .btn-danger:active { transform: scale(1.05); }
+         .btn-danger i { margin: 0; }
+          .btn-danger:hover::before { display: none; }
+
+
+        .add-course-btn { margin-top: 1rem; }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+        }
+         .actions > div {
+             display: flex;
+             gap: 1rem;
+             flex-wrap: wrap;
+         }
+
+         .actions .export-btn { /* Specific style for export */
+            background: var(--success-color);
+             box-shadow: 0 4px 10px rgba(var(--success-color-rgb), 0.3);
+         }
+          .theme-light { --success-color-rgb: 56, 161, 105; }
+          .theme-dark { --success-color-rgb: 84, 224, 147; }
+
+
+        /* --- Results Card --- */
+        .results-card {
+             text-align: center;
+             display: none; /* Initially hidden */
+             animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+         @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+         }
+
+        .result-header h2 {
+            font-size: clamp(1.8rem, 4vw, 2.2rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 2.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        .result-header h2 i {
+             color: var(--accent-primary);
+             margin-right: 10px;
+        }
+        .result-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent-gradient);
+            border-radius: 2px;
+        }
+
+
+        .cgpa-display-area {
+            margin-bottom: 3rem;
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             gap: 1rem;
+        }
+         .cgpa-value-wrapper {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+             border: 5px solid var(--border-color);
+             box-shadow: var(--shadow-md), inset 0 0 20px rgba(0,0,0,0.1);
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             position: relative;
+         }
+         .cgpa-gauge-track {
+             position: absolute;
+             top: 0; left: 0; width: 100%; height: 100%;
+             transform: rotate(-90deg); /* Start at 12 o'clock */
+         }
+          .cgpa-gauge-progress {
+             fill: none;
+             stroke: url(#cgpa-gradient); /* Apply gradient */
+             stroke-width: 10;
+             stroke-linecap: round;
+             stroke-dasharray: 471; /* Circumference (2 * PI * 75) approx */
+             stroke-dashoffset: 471; /* Start empty */
+             transition: stroke-dashoffset 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+         }
+         .cgpa-value {
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-weight: 700;
+            color: var(--accent-primary);
+         }
+         .cgpa-meta p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+         }
+         .cgpa-meta #total-credits {
+            font-weight: 600;
+            color: var(--text-primary);
+         }
+         /* Target GPA suggestion */
+         #target-gpa-suggestion {
+             font-size: 0.95rem;
+             color: var(--text-secondary);
+             margin-top: 1rem;
+             font-style: italic;
+             display: none; /* Hidden initially */
+             max-width: 500px;
+             margin-left: auto;
+             margin-right: auto;
+         }
+
+
+        /* --- Semester Summary & Chart --- */
+        .semester-summary, .grade-scale {
+            margin-top: 3.5rem;
+             padding: 2rem;
+             background: var(--bg-secondary);
+             border-radius: var(--border-radius-md);
+             border: 1px solid var(--border-color);
+              box-shadow: var(--shadow-sm);
+        }
+        .semester-summary h3, .grade-scale h3 {
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 1.6rem;
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .semester-summary h3 i, .grade-scale h3 i { color: var(--accent-primary); }
+
+
+        #semester-chart-container {
+            max-width: 800px;
+            height: 350px; /* Fixed height for chart */
+            margin: 0 auto;
+        }
+
+        /* --- Grade Scale Table --- */
+        .grade-table {
+            width: 100%;
+            max-width: 550px;
+            margin: 0 auto;
+            border-collapse: separate;
+            border-spacing: 0 5px;
+            text-align: center;
+        }
+        .grade-table th {
+             background: var(--bg-tertiary);
+             color: var(--text-primary);
+             padding: 0.8rem;
+             font-weight: 600;
+             border-bottom: 2px solid var(--border-color);
+        }
+         .grade-table th:first-child { border-top-left-radius: var(--border-radius-sm); border-bottom-left-radius: var(--border-radius-sm); }
+         .grade-table th:last-child { border-top-right-radius: var(--border-radius-sm); border-bottom-right-radius: var(--border-radius-sm); }
+
+         .grade-table td {
+             padding: 0.8rem;
+             background-color: var(--bg-secondary);
+             border: 1px solid var(--border-color);
+             border-width: 1px 0; /* Only top/bottom borders */
+         }
+          .grade-table tr td:first-child { border-left: 1px solid var(--border-color); border-top-left-radius: var(--border-radius-sm); border-bottom-left-radius: var(--border-radius-sm); }
+          .grade-table tr td:last-child { border-right: 1px solid var(--border-color); border-top-right-radius: var(--border-radius-sm); border-bottom-right-radius: var(--border-radius-sm); }
+         .grade-table td:nth-child(2) { font-weight: 600; color: var(--success-color);} /* Grade Points */
+
+
+        /* --- Confirmation Modal --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition-speed) ease, visibility 0s linear var(--transition-speed);
+        }
+         .modal-overlay.show {
+             opacity: 1;
+             visibility: visible;
+             transition-delay: 0s;
+         }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            padding: 2.5rem;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            max-width: 450px;
+             border: 1px solid var(--border-color);
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform var(--transition-speed) ease, opacity var(--transition-speed) ease;
+        }
+         .modal-overlay.show .modal-content {
+             transform: scale(1);
+             opacity: 1;
+         }
+
+        .modal-content h4 {
+            color: var(--text-primary);
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .modal-content p {
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+         /* Override button styles slightly for modal */
+         .modal-actions .btn { font-size: 0.9rem; padding: 0.7rem 1.5rem;}
+         .modal-actions .btn-danger { background: var(--danger-color); box-shadow: 0 4px 10px rgba(var(--danger-color-rgb), 0.3); color: #fff;}
+         .modal-actions .btn-danger:hover { background: var(--danger-color); filter: brightness(1.1); }
+         .modal-actions .btn-secondary { background: var(--bg-tertiary); }
+
+
+        /* --- Responsiveness --- */
+        @media (max-width: 992px) {
+             .courses-table { min-width: 600px; }
+             .control-group { flex-basis: 45%; } /* Two controls per row */
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .page-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; text-align: left; }
+            .theme-switcher { align-self: flex-start;} /* Align switcher left */
+            .card { padding: 1.5rem; }
+            .tabs { flex-direction: column; border-radius: var(--border-radius-md); }
+            .tab { border-bottom: 1px solid var(--border-color); border-left: 3px solid transparent; border-radius: 0;}
+            .tab.active { border-bottom-color: var(--border-color); border-left-color: var(--accent-primary); }
+            .tab:first-child { border-top-left-radius: var(--border-radius-md); border-top-right-radius: var(--border-radius-md);}
+            .tab:last-child { border-bottom-left-radius: var(--border-radius-md); border-bottom-right-radius: var(--border-radius-md); border-bottom: none; }
+            .tab.active:last-child { border-bottom-color: transparent; } /* Fix double border */
+
+             .controls-section { flex-direction: column; gap: 1.5rem; padding: 1rem; }
+             .control-group { flex-basis: auto; width: 100%;}
+
+            .actions { flex-direction: column; align-items: stretch; padding-top: 1.5rem; margin-top: 1.5rem;}
+            .actions > div { justify-content: center; width: 100%; }
+            .btn { width: 100%; justify-content: center; margin-bottom: 0.5rem;}
+            .add-semester-btn { width: 100%; }
+
+             .courses-table { font-size: 0.9rem; min-width: 100%; }
+            .courses-table th, .courses-table td { padding: 0.8rem; }
+            .courses-table input, .courses-table select { padding: 0.7rem; font-size: 0.9rem; }
+
+            .cgpa-value-wrapper { width: 150px; height: 150px; }
+            .cgpa-value { font-size: 2.8rem; }
+
+            #semester-chart-container { height: 300px; }
+            .grade-scale, .semester-summary { padding: 1.5rem; }
+            .result-header h2 { font-size: 1.8rem; }
+        }
+
+         @media (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            .subtitle { font-size: 0.9rem; }
+            .card { padding: 1rem; }
+            .tab { padding: 0.8rem 1rem; font-size: 0.9rem;}
+            .btn { padding: 0.7rem 1.5rem; font-size: 0.9rem; }
+            .modal-content { padding: 1.5rem; max-width: 90%; }
+             .cgpa-value-wrapper { width: 130px; height: 130px; }
+             .cgpa-value { font-size: 2.5rem; }
+         }
+
+    </style>
+</head>
+<body>
+     <!-- SVG Definition for Gauge Gradient -->
+     <svg width="0" height="0" style="position:absolute;">
+       <defs>
+         <linearGradient id="cgpa-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+           <stop offset="0%" style="stop-color:var(--accent-secondary); stop-opacity:1" />
+           <stop offset="100%" style="stop-color:var(--accent-primary); stop-opacity:1" />
+         </linearGradient>
+       </defs>
+     </svg>
+
+
+    <div class="container">
+        <header class="page-header">
+            <div class="header-title">
+                <h1><i class="fas fa-rocket"></i> Élite CGPA Analyzer</h1>
+                <p class="subtitle">Precision Calculations & Insightful Analytics</p>
+            </div>
+             <div class="theme-switcher">
+                 <button id="theme-light-btn" title="Switch to Light Theme"><i class="fas fa-sun"></i></button>
+                 <button id="theme-dark-btn" title="Switch to Dark Theme"><i class="fas fa-moon"></i></button>
+             </div>
+        </header>
+
+        <div class="card calculator-card">
+
+             <!-- Controls: Grading Scale & Target GPA -->
+            <div class="controls-section">
+                <div class="control-group">
+                    <label for="grading-scale"><i class="fas fa-balance-scale-right"></i> Grading Scale:</label>
+                    <select id="grading-scale">
+                        <option value="4.0">Standard 4.0 Scale</option>
+                        <option value="5.0">Standard 5.0 Scale</option>
+                        <!-- Add more predefined scales if needed -->
+                    </select>
+                </div>
+                 <div class="control-group">
+                     <label for="target-cgpa"><i class="fas fa-bullseye"></i> Target CGPA:</label>
+                     <input type="number" id="target-cgpa" min="0" max="5" step="0.01" placeholder="e.g. 3.80 (Optional)">
+                 </div>
+            </div>
+
+
+            <div class="tabs">
+                <div class="tab active" data-tab="semester"><i class="fas fa-layer-group"></i> Semester View</div>
+                <div class="tab" data-tab="course"><i class="fas fa-book-open"></i> Course View</div>
+            </div>
+
+            <!-- Semester Tab Content -->
+            <div id="semester-tab" class="tab-content active">
+                <div id="semesters-container">
+                    <!-- Semester sections will be dynamically added here by JS -->
+                </div>
+                <div class="actions">
+                    <button class="btn btn-secondary add-semester-btn"><i class="fas fa-plus-circle"></i> Add Semester</button>
+                    <div>
+                         <button class="btn export-btn" id="export-csv-sem" title="Export Semester Data to CSV"><i class="fas fa-file-csv"></i> Export CSV</button>
+                        <button class="btn calculate-btn"><i class="fas fa-calculator"></i> Calculate</button>
+                        <button class="btn btn-danger reset-btn"><i class="fas fa-undo-alt"></i> Reset</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Tab Content -->
+            <div id="course-tab" class="tab-content">
+                 <div class="courses-table-wrapper">
+                    <table class="courses-table">
+                        <thead>
+                            <tr>
+                                <th>Course Code</th>
+                                <th>Course Name (Optional)</th>
+                                <th>Credit Hours</th>
+                                <th>Grade</th>
+                                <th><i class="fas fa-trash-alt"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody id="course-tbody">
+                            <!-- Course rows will be dynamically added here by JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <button class="btn btn-secondary add-course-btn" data-tab="course"><i class="fas fa-plus"></i> Add Course</button>
+
+                <div class="actions">
+                     <div></div> <!-- Spacer -->
+                     <div>
+                         <button class="btn export-btn" id="export-csv-course" title="Export Course Data to CSV"><i class="fas fa-file-csv"></i> Export CSV</button>
+                         <button class="btn calculate-btn"><i class="fas fa-calculator"></i> Calculate</button>
+                        <button class="btn btn-danger reset-btn"><i class="fas fa-undo-alt"></i> Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Card -->
+        <div class="card results-card" id="results">
+            <div class="result-header">
+                <h2><i class="fas fa-chart-pie"></i> Analysis Results</h2>
+            </div>
+
+             <div class="cgpa-display-area">
+                 <div class="cgpa-value-wrapper">
+                      <!-- SVG Gauge -->
+                     <svg class="cgpa-gauge-track" viewBox="0 0 160 160">
+                         <circle
+                             class="cgpa-gauge-progress"
+                             id="cgpa-gauge-progress"
+                             cx="80" cy="80" r="75"
+                             stroke-width="10"
+                          />
+                     </svg>
+                     <div class="cgpa-value" id="cgpa-value">0.00</div>
+                 </div>
+                 <div class="cgpa-meta">
+                     <p>Cumulative GPA (CGPA)</p>
+                     <p>Across <strong id="total-credits">0</strong> total credit hours</p>
+                 </div>
+                 <p id="target-gpa-suggestion">Enter a target CGPA above to see suggestions.</p>
+             </div>
+
+
+            <div class="semester-summary" id="semester-summary">
+                <h3><i class="fas fa-chart-line"></i> Semester Performance Trend</h3>
+                 <div id="semester-chart-container">
+                    <canvas id="semesterChart"></canvas>
+                 </div>
+            </div>
+
+            <div class="grade-scale">
+                <h3><i class="fas fa-tasks"></i> Grading Scale Reference</h3>
+                <table class="grade-table" id="grade-table-ref">
+                    <thead>
+                        <tr>
+                            <th>Grade Letter</th>
+                            <th>Grade Points</th>
+                        </tr>
+                    </thead>
+                    <tbody id="grade-table-ref-body">
+                        <!-- Grade scale reference rows will be populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="confirmation-modal">
+        <div class="modal-content">
+            <h4><i class="fas fa-exclamation-triangle" style="color: var(--danger-color); margin-right: 10px;"></i>Confirm Action</h4>
+            <p id="modal-message">Are you sure you want to proceed? This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button class="btn btn-danger" id="confirm-reset-btn"><i class="fas fa-check-circle"></i> Confirm</button>
+                <button class="btn btn-secondary" id="cancel-reset-btn"><i class="fas fa-times-circle"></i> Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- DOM Elements ---
+            const htmlElement = document.documentElement;
+            const themeLightBtn = document.getElementById('theme-light-btn');
+            const themeDarkBtn = document.getElementById('theme-dark-btn');
+            const semestersContainer = document.getElementById('semesters-container');
+            const courseTbody = document.getElementById('course-tbody');
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const resultsCard = document.getElementById('results');
+            const cgpaValueDisplay = document.getElementById('cgpa-value');
+            const totalCreditsDisplay = document.getElementById('total-credits');
+            const semesterSummarySection = document.getElementById('semester-summary');
+            const gradingScaleSelect = document.getElementById('grading-scale');
+            const targetCgpaInput = document.getElementById('target-cgpa');
+            const targetGpaSuggestion = document.getElementById('target-gpa-suggestion');
+            const gradeTableRefBody = document.getElementById('grade-table-ref-body');
+            const cgpaGaugeProgress = document.getElementById('cgpa-gauge-progress');
+            const confirmationModal = document.getElementById('confirmation-modal');
+            const modalMessage = document.getElementById('modal-message');
+            const confirmResetBtn = document.getElementById('confirm-reset-btn');
+            const cancelResetBtn = document.getElementById('cancel-reset-btn');
+            const exportCsvSemBtn = document.getElementById('export-csv-sem');
+            const exportCsvCourseBtn = document.getElementById('export-csv-course');
+
+
+            // --- State & Configuration ---
+            let semesterChart = null;
+            let resetCallback = null;
+            let currentTheme = localStorage.getItem('cgpaTheme') || 'theme-dark'; // Default theme
+
+            const GAUGE_CIRCUMFERENCE = 2 * Math.PI * 75; // Approx 471
+
+             // --- Grading Scales Definition ---
+             const gradingScales = {
+                "4.0": [
+                    { grade: "A+", points: 4.0 }, { grade: "A", points: 3.75 }, { grade: "A-", points: 3.5 },
+                    { grade: "B+", points: 3.25 }, { grade: "B", points: 3.0 }, { grade: "B-", points: 2.75 },
+                    { grade: "C+", points: 2.5 }, { grade: "C", points: 2.25 }, { grade: "C-", points: 2.0 },
+                    { grade: "D+", points: 1.75 }, { grade: "D", points: 1.5 },
+                    { grade: "F", points: 0.0 }
+                ],
+                "5.0": [
+                     { grade: "A", points: 5.0 }, { grade: "B", points: 4.0 },
+                     { grade: "C", points: 3.0 }, { grade: "D", points: 2.0 },
+                     { grade: "E/Pass", points: 1.0 }, // Some use E, some Pass=1
+                     { grade: "F", points: 0.0 }
+                 ]
+            };
+
+            // --- Initialization ---
+            applyTheme(currentTheme);
+            loadState(); // Load saved data first (includes scale, which affects dropdowns)
+            updateGradeDropdowns(); // Populate grades based on loaded/default scale
+            updateGradeReferenceTable(); // Populate reference table
+            updateGaugeSVG(0, getMaxGradePoints()); // Initialize gauge
+
+            // --- Event Listeners ---
+
+             // Theme Switching
+             themeLightBtn.addEventListener('click', () => applyTheme('theme-light'));
+             themeDarkBtn.addEventListener('click', () => applyTheme('theme-dark'));
+
+            // Tab Switching
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    switchTab(this.getAttribute('data-tab'));
+                });
+            });
+
+            // Grading Scale Change
+            gradingScaleSelect.addEventListener('change', () => {
+                // Update max value for target CGPA input based on scale
+                 targetCgpaInput.max = getMaxGradePoints();
+                 if (parseFloat(targetCgpaInput.value) > targetCgpaInput.max) {
+                     targetCgpaInput.value = targetCgpaInput.max;
+                 }
+
+                updateGradeDropdowns();
+                updateGradeReferenceTable();
+                saveState();
+                if (resultsCard.style.display === 'block') {
+                    calculateActiveTab(); // Recalculate if results are visible
+                }
+            });
+
+             // Target CGPA Input change
+             targetCgpaInput.addEventListener('input', () => {
+                 // Optional: Could provide live feedback, but saving state is enough for now
+                 saveState();
+                 if (resultsCard.style.display === 'block') {
+                     // Only update the suggestion text part if results are already shown
+                      calculateTargetGPASuggestion(getCurrentCGPAData());
+                 }
+             });
+
+
+            // Main Container Event Delegation
+            document.querySelector('.container').addEventListener('click', (e) => {
+                 const target = e.target;
+                 const closest = (selector) => target.closest(selector);
+
+                 // Add Course Button
+                 if (closest('.add-course-btn')) {
+                    const btn = closest('.add-course-btn');
+                    const targetTab = btn.getAttribute('data-tab');
+                    if (targetTab === 'course') {
+                        addCourseRow(courseTbody);
+                    } else {
+                        const semesterNum = btn.getAttribute('data-semester');
+                        const tbody = semestersContainer.querySelector(`.semester-section[data-semester="${semesterNum}"] tbody`);
+                        if (tbody) addCourseRow(tbody);
+                    }
+                    saveState();
+                 }
+                 // Remove Course Button
+                 else if (closest('.remove-btn')) {
+                    const button = closest('.remove-btn');
+                    const row = button.closest('tr');
+                     if (!row) return;
+                    const tbody = row.parentElement;
+                     if (!tbody) return;
+
+                     const isSemesterTab = tbody.closest('#semesters-container');
+                     const semesterSections = isSemesterTab ? semestersContainer.querySelectorAll('.semester-section') : [];
+                     const isLastRowInOnlySemester = isSemesterTab && semesterSections.length === 1 && tbody.children.length === 1;
+                     const isLastRowInCourseTab = !isSemesterTab && tbody.children.length === 1;
+
+                     if (isLastRowInOnlySemester || isLastRowInCourseTab) {
+                         // Prevent removal - maybe add visual feedback like shaking
+                          row.animate([
+                            { transform: 'translateX(0)' }, { transform: 'translateX(-5px)' },
+                            { transform: 'translateX(5px)' }, { transform: 'translateX(0)' }
+                          ], { duration: 300, iterations: 2 });
+                          console.warn("Cannot remove the last row.");
+                          return; // Stop execution
+                     }
+
+                     // Proceed with removal
+                      row.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
+                      row.style.opacity = '0';
+                      row.style.transform = 'translateX(20px)';
+                      setTimeout(() => {
+                         row.remove();
+                         saveState();
+                         if (resultsCard.style.display === 'block') calculateActiveTab();
+                      }, 300);
+                 }
+                 // Add Semester Button
+                 else if (closest('.add-semester-btn')) {
+                     addSemester();
+                     saveState();
+                 }
+                 // Calculate Button
+                 else if (closest('.calculate-btn')) {
+                     calculateActiveTab();
+                 }
+                  // Reset Button Click
+                 else if (closest('.reset-btn')) {
+                     const isActiveSemesterTab = document.getElementById('semester-tab').classList.contains('active');
+                     const message = isActiveSemesterTab
+                         ? "Reset all semester data? This action is irreversible."
+                         : "Reset all courses in the current list? This action is irreversible.";
+                     const callback = isActiveSemesterTab ? resetSemesterTab : resetCourseTab;
+                     showConfirmationModal(message, callback);
+                  }
+                  // Export Buttons
+                  else if (target.id === 'export-csv-sem') {
+                     exportDataToCSV(true); // true for semester view
+                  } else if (target.id === 'export-csv-course') {
+                      exportDataToCSV(false); // false for course view
+                  }
+
+                  // Confirmation Modal Buttons
+                  else if (closest('#confirm-reset-btn')) {
+                     if (resetCallback) {
+                         resetCallback();
+                         saveState(); // Save the reset state
+                         resultsCard.style.display = 'none';
+                     }
+                     hideConfirmationModal();
+                  } else if (closest('#cancel-reset-btn')) {
+                     hideConfirmationModal();
+                  }
+            });
+
+             // Save data on input change (Debounced)
+             let saveTimeout;
+             document.querySelector('.container').addEventListener('input', (e) => {
+                if (e.target.matches('.course-code, .course-name, .credit-hours, .grade')) {
+                    // Clear previous validation on input
+                    e.target.classList.remove('invalid');
+                     const validationMsg = e.target.nextElementSibling;
+                     if (validationMsg && validationMsg.classList.contains('validation-message')) {
+                         validationMsg.style.display = 'none';
+                     }
+
+                    clearTimeout(saveTimeout);
+                    saveTimeout = setTimeout(saveState, 500);
+                }
+             });
+
+            // Close modal on overlay click
+            confirmationModal.addEventListener('click', (e) => {
+                if (e.target === confirmationModal) {
+                    hideConfirmationModal();
+                }
+            });
+
+            // --- Core Functions ---
+
+             function applyTheme(themeName) {
+                 htmlElement.className = themeName; // Set class on <html>
+                 currentTheme = themeName;
+                 localStorage.setItem('cgpaTheme', themeName);
+
+                 // Update theme button active states
+                  themeLightBtn.classList.toggle('active', themeName === 'theme-light');
+                  themeDarkBtn.classList.toggle('active', themeName === 'theme-dark');
+
+                  // If chart exists, update its colors (needs Chart.js >= 3.x for dynamic options)
+                  if (semesterChart) {
+                     updateChartColors();
+                     semesterChart.update();
+                 }
+             }
+
+            function switchTab(tabId) {
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                const activeTab = document.querySelector(`.tab[data-tab="${tabId}"]`);
+                const activeContent = document.getElementById(`${tabId}-tab`);
+
+                if (activeTab) activeTab.classList.add('active');
+                if (activeContent) {
+                     activeContent.classList.add('active');
+                     // Trigger reflow to restart animation
+                      void activeContent.offsetWidth;
+                }
+
+                resultsCard.style.display = 'none';
+                saveState();
+            }
+
+             function getSelectedGradingScale() { return gradingScaleSelect.value || "4.0"; }
+             function getMaxGradePoints() { return parseFloat(getSelectedGradingScale()); }
+
+             function updateGradeDropdowns() {
+                 const scaleKey = getSelectedGradingScale();
+                 const currentScale = gradingScales[scaleKey];
+                 if (!currentScale) return;
+
+                 const gradeOptionsHTML = currentScale.map(item =>
+                     `<option value="${item.points}">${item.grade} (${item.points.toFixed(1)})</option>`
+                 ).join('');
+
+                 document.querySelectorAll('select.grade').forEach(select => {
+                     const currentValue = select.value;
+                     const parentRow = select.closest('tr'); // Keep track of parent row
+                     select.innerHTML = gradeOptionsHTML;
+
+                     if ([...select.options].some(opt => opt.value === currentValue)) {
+                         select.value = currentValue;
+                     } else if (parentRow && parentRow.dataset.loadedValue && [...select.options].some(opt => opt.value === parentRow.dataset.loadedValue)) {
+                         // If loaded value exists and is valid for the new scale, use it
+                         select.value = parentRow.dataset.loadedValue;
+                         delete parentRow.dataset.loadedValue; // Clean up temp attribute
+                     } else {
+                          select.value = currentScale[0].points; // Default to highest
+                     }
+                 });
+             }
+
+              function updateGradeReferenceTable() {
+                 const scaleKey = getSelectedGradingScale();
+                 const currentScale = gradingScales[scaleKey];
+                 gradeTableRefBody.innerHTML = '';
+
+                 if (!currentScale) return;
+
+                 currentScale.forEach(item => {
+                     const row = gradeTableRefBody.insertRow();
+                     row.innerHTML = `
+                         <td>${item.grade}</td>
+                         <td>${item.points.toFixed(1)}</td>
+                     `;
+                 });
+             }
+
+            function addCourseRow(tbody, courseData = null) {
+                const newRow = tbody.insertRow();
+                newRow.style.opacity = '0'; // Start hidden for animation
+
+                newRow.innerHTML = `
+                    <td><input type="text" class="course-code" placeholder="e.g. PHY101"></td>
+                    <td><input type="text" class="course-name" placeholder="e.g. Quantum Physics"></td>
+                    <td>
+                         <input type="number" class="credit-hours" min="0" max="10" step="0.1" value="3">
+                         <div class="validation-message">Invalid credits</div>
+                     </td>
+                    <td>
+                         <select class="grade"></select>
+                         <div class="validation-message">Invalid grade</div>
+                     </td>
+                    <td><button class="btn btn-danger remove-btn" title="Remove Course"><i class="fas fa-trash-alt"></i></button></td>
+                `;
+
+                 const creditInput = newRow.querySelector('.credit-hours');
+                 const gradeSelect = newRow.querySelector('.grade');
+
+                 // Populate dropdown for the new row FIRST
+                 updateGradeDropdownsInRow(newRow);
+
+                 // Then populate data if provided
+                if (courseData) {
+                    newRow.querySelector('.course-code').value = courseData.code || '';
+                    newRow.querySelector('.course-name').value = courseData.name || '';
+                    creditInput.value = courseData.credits ?? 3; // Use nullish coalescing for default
+                     // Store loaded value temporarily in case scale changes before selection is finalized
+                     newRow.dataset.loadedValue = courseData.gradePoints;
+                     // Check if the loaded grade point is valid for the current scale
+                     if ([...gradeSelect.options].some(opt => opt.value == courseData.gradePoints)) {
+                        gradeSelect.value = courseData.gradePoints;
+                        delete newRow.dataset.loadedValue; // Clean up if immediately valid
+                     } else {
+                         // Value might be invalid for current scale, will be handled by updateGradeDropdowns or default
+                         console.warn(`Loaded grade point ${courseData.gradePoints} might be invalid for current scale.`);
+                     }
+                }
+
+
+                 // Fade-in animation
+                 requestAnimationFrame(() => {
+                     newRow.style.transition = 'opacity 0.4s ease';
+                     newRow.style.opacity = '1';
+                 });
+             }
+
+             // Helper to update dropdowns only within a specific newly added row
+             function updateGradeDropdownsInRow(row) {
+                 const scaleKey = getSelectedGradingScale();
+                 const currentScale = gradingScales[scaleKey];
+                 if (!currentScale) return;
+                  const gradeOptionsHTML = currentScale.map(item =>
+                     `<option value="${item.points}">${item.grade} (${item.points.toFixed(1)})</option>`
+                 ).join('');
+                 const select = row.querySelector('select.grade');
+                 if (select) {
+                     const currentValue = select.value; // Preserve if possible
+                     select.innerHTML = gradeOptionsHTML;
+                      if ([...select.options].some(opt => opt.value === currentValue)) {
+                         select.value = currentValue;
+                     } else {
+                          select.value = currentScale[0].points; // Default to highest
+                     }
+                 }
+             }
+
+
+             function addSemester(semesterData = null) {
+                  const semesterCount = semestersContainer.children.length + 1;
+                  const semesterDiv = document.createElement('div');
+                  semesterDiv.className = 'semester-section';
+                  semesterDiv.setAttribute('data-semester', semesterCount);
+                  semesterDiv.style.opacity = '0'; // For animation
+
+                  semesterDiv.innerHTML = `
+                     <div class="semester-header">
+                         <h3><i class="fas fa-university"></i> Semester ${semesterCount}</h3>
+                         <!-- Potential: Add button to remove semester -->
+                     </div>
+                     <div class="courses-table-wrapper">
+                        <table class="courses-table">
+                            <thead>
+                                <tr>
+                                    <th>Course Code</th>
+                                    <th>Course Name (Optional)</th>
+                                    <th>Credit Hours</th>
+                                    <th>Grade</th>
+                                    <th><i class="fas fa-trash-alt"></i></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                     </div>
+                     <button class="btn btn-secondary add-course-btn" data-semester="${semesterCount}"><i class="fas fa-plus"></i> Add Course to Semester ${semesterCount}</button>
+                 `;
+
+                 const tbody = semesterDiv.querySelector('tbody');
+                 if (semesterData && semesterData.courses && semesterData.courses.length > 0) {
+                     semesterData.courses.forEach(course => addCourseRow(tbody, course));
+                 } else {
+                     addCourseRow(tbody); // Add one default empty row
+                 }
+
+                 semestersContainer.appendChild(semesterDiv);
+                 // updateGradeDropdowns(); // Done within addCourseRow implicitly now
+
+                  // Animation
+                  requestAnimationFrame(() => {
+                      semesterDiv.style.transition = 'opacity 0.5s ease';
+                      semesterDiv.style.opacity = '1';
+                  });
+             }
+
+             // --- Calculation ---
+              function validateInput(inputElement) {
+                  const value = parseFloat(inputElement.value);
+                  let isValid = !isNaN(value);
+                  const min = parseFloat(inputElement.min);
+                  const max = parseFloat(inputElement.max);
+
+                  if (inputElement.type === 'number' && (value < min || (max != null && value > max))) {
+                      isValid = false;
+                  }
+                 if (inputElement.tagName === 'SELECT' && inputElement.value === "") { // Ensure a grade is selected
+                     isValid = false;
+                 }
+
+
+                 inputElement.classList.toggle('invalid', !isValid);
+                 const validationMsg = inputElement.parentElement.querySelector('.validation-message');
+                  if (validationMsg) {
+                      validationMsg.style.display = isValid ? 'none' : 'block';
+                  }
+                  return isValid ? value : NaN; // Return NaN if invalid
+              }
+
+             function calculateActiveTab() {
+                  let cgpaData = { totalPoints: 0, totalCredits: 0, semesterSummaries: [], isValid: true };
+                  const activeTabId = document.querySelector('.tab.active')?.getAttribute('data-tab') || 'semester';
+
+                  if (activeTabId === 'semester') {
+                     cgpaData = calculateSemesterCGPA();
+                  } else {
+                     cgpaData = calculateCourseCGPA();
+                  }
+
+                  if (cgpaData.isValid) {
+                      const cgpa = cgpaData.totalCredits > 0 ? (cgpaData.totalPoints / cgpaData.totalCredits) : 0;
+                      const maxPoints = getMaxGradePoints();
+
+                      cgpaValueDisplay.textContent = cgpa.toFixed(2);
+                      totalCreditsDisplay.textContent = cgpaData.totalCredits.toFixed(1); // Allow decimals like 1.5 credits
+                      updateGaugeSVG(cgpa, maxPoints);
+
+                      if (activeTabId === 'semester' && cgpaData.semesterSummaries.length > 0) {
+                           updateSemesterChart(cgpaData.semesterSummaries);
+                           semesterSummarySection.style.display = 'block';
+                      } else {
+                           semesterSummarySection.style.display = 'none';
+                           if(semesterChart) semesterChart.destroy(); // Clear chart if not applicable
+                      }
+
+                      // Calculate and display Target GPA suggestion
+                      calculateTargetGPASuggestion(cgpaData);
+
+                       resultsCard.style.display = 'block';
+                       // Scroll to results only if they weren't already visible maybe?
+                       resultsCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                  } else {
+                       // Handle overall invalid state - maybe show a general error message
+                       console.error("Calculation failed due to invalid input(s).");
+                       // Optionally hide results card or show error message within it
+                       resultsCard.style.display = 'none'; // Hide potentially incorrect results
+                  }
+             }
+
+              function calculateSemesterCGPA() {
+                 const semesters = semestersContainer.querySelectorAll('.semester-section');
+                 let overallTotalPoints = 0;
+                 let overallTotalCredits = 0;
+                 const semesterSummaries = [];
+                 let overallValid = true;
+
+                 semesters.forEach((semester, index) => {
+                     const semesterNum = semester.getAttribute('data-semester') || (index + 1);
+                     const courses = semester.querySelectorAll('tbody tr');
+                     let semesterTotalPoints = 0;
+                     let semesterTotalCredits = 0;
+                     let semesterValid = true;
+
+                     courses.forEach(course => {
+                         const creditInput = course.querySelector('.credit-hours');
+                         const gradeSelect = course.querySelector('.grade');
+                         const credits = validateInput(creditInput);
+                         const gradePoints = validateInput(gradeSelect);
+
+                         if (isNaN(credits) || isNaN(gradePoints)) {
+                             semesterValid = false;
+                             overallValid = false;
+                         } else {
+                             semesterTotalPoints += credits * gradePoints;
+                             semesterTotalCredits += credits;
+                         }
+                     });
+
+                     if(semesterValid) { // Only add summary if semester itself is valid
+                        overallTotalPoints += semesterTotalPoints;
+                        overallTotalCredits += semesterTotalCredits;
+                        const semesterGPA = semesterTotalCredits > 0 ? (semesterTotalPoints / semesterTotalCredits) : 0;
+                        semesterSummaries.push({ semester: `Sem ${semesterNum}`, gpa: semesterGPA });
+                     }
+                 });
+
+                  return { totalPoints: overallTotalPoints, totalCredits: overallTotalCredits, semesterSummaries, isValid: overallValid };
+             }
+
+              function calculateCourseCGPA() {
+                 const courses = courseTbody.querySelectorAll('tr');
+                 let totalPoints = 0;
+                 let totalCredits = 0;
+                 let overallValid = true;
+
+                 courses.forEach(course => {
+                     const creditInput = course.querySelector('.credit-hours');
+                     const gradeSelect = course.querySelector('.grade');
+                     const credits = validateInput(creditInput);
+                     const gradePoints = validateInput(gradeSelect);
+
+                     if (isNaN(credits) || isNaN(gradePoints)) {
+                         overallValid = false;
+                     } else {
+                         totalPoints += credits * gradePoints;
+                         totalCredits += credits;
+                     }
+                 });
+
+                 // Course view doesn't have semester summaries
+                  return { totalPoints, totalCredits, semesterSummaries: [], isValid: overallValid };
+             }
+
+              // Get current CGPA data for target suggestion
+              function getCurrentCGPAData() {
+                  const activeTabId = document.querySelector('.tab.active')?.getAttribute('data-tab') || 'semester';
+                   if (activeTabId === 'semester') {
+                       return calculateSemesterCGPA();
+                   } else {
+                       return calculateCourseCGPA();
+                   }
+              }
+
+              // Target GPA Calculation (Simple Version)
+              function calculateTargetGPASuggestion(currentData) {
+                  const targetCgpa = parseFloat(targetCgpaInput.value);
+                  const maxPoints = getMaxGradePoints();
+                   targetGpaSuggestion.style.display = 'none'; // Hide by default
+
+                  if (isNaN(targetCgpa) || targetCgpa <= 0 || targetCgpa > maxPoints || !currentData.isValid) {
+                     if (!isNaN(targetCgpa) && targetCgpa > 0) {
+                         targetGpaSuggestion.textContent = `Please ensure all inputs are valid to calculate target GPA needs.`;
+                         targetGpaSuggestion.style.display = 'block';
+                     } else {
+                          targetGpaSuggestion.textContent = `Enter a valid target CGPA between 0 and ${maxPoints.toFixed(1)}.`;
+                          targetGpaSuggestion.style.display = 'block';
+                     }
+                      return;
+                  }
+
+
+                 const currentTotalPoints = currentData.totalPoints;
+                 const currentTotalCredits = currentData.totalCredits;
+
+                  // Simple check: If current CGPA already meets or exceeds target
+                  const currentCgpa = currentTotalCredits > 0 ? currentTotalPoints / currentTotalCredits : 0;
+                   if (currentCgpa >= targetCgpa) {
+                       targetGpaSuggestion.textContent = `Congratulations! Your current CGPA of ${currentCgpa.toFixed(2)} already meets or exceeds your target of ${targetCgpa.toFixed(2)}.`;
+                       targetGpaSuggestion.style.display = 'block';
+                       return;
+                   }
+
+                  // Very basic future estimation: Assume a fixed number of future credits (e.g., 30)
+                  // A more advanced version would allow user input for future credits/courses.
+                  const estimatedFutureCredits = 30;
+                  const requiredTotalPoints = targetCgpa * (currentTotalCredits + estimatedFutureCredits);
+                  const pointsNeededFromFuture = requiredTotalPoints - currentTotalPoints;
+                  const requiredFutureGPA = estimatedFutureCredits > 0 ? pointsNeededFromFuture / estimatedFutureCredits : targetCgpa;
+
+
+                  if (requiredFutureGPA > maxPoints) {
+                      targetGpaSuggestion.textContent = `Based on ${currentTotalCredits.toFixed(1)} credits, reaching ${targetCgpa.toFixed(2)} CGPA would require an average GPA of ${requiredFutureGPA.toFixed(2)} over the next estimated ${estimatedFutureCredits} credits, which is above the maximum of ${maxPoints.toFixed(1)}.`;
+                  } else if (requiredFutureGPA < 0) { // Should not happen if current < target, but good practice
+                      targetGpaSuggestion.textContent = `Your current CGPA is already high. Maintaining it will likely keep you above your target.`;
+                   } else {
+                      targetGpaSuggestion.textContent = `To reach a ${targetCgpa.toFixed(2)} CGPA from your current ${currentCgpa.toFixed(2)} (${currentTotalCredits.toFixed(1)} credits), you'll need an average GPA of approximately ${requiredFutureGPA.toFixed(2)} over the next estimated ${estimatedFutureCredits} credits.`;
+                  }
+                    targetGpaSuggestion.style.display = 'block';
+              }
+
+             // --- Visual Updates (Gauge & Chart) ---
+              function updateGaugeSVG(value, maxValue) {
+                   const percentage = maxValue > 0 ? Math.max(0, Math.min(100, (value / maxValue) * 100)) : 0;
+                   const offset = GAUGE_CIRCUMFERENCE * (1 - percentage / 100);
+                   cgpaGaugeProgress.style.strokeDashoffset = offset;
+              }
+
+              function updateSemesterChart(summaryData) {
+                   const chartContainer = document.getElementById('semester-chart-container');
+                   const canvas = document.getElementById('semesterChart');
+                   const ctx = canvas.getContext('2d');
+                   const maxPoints = getMaxGradePoints();
+
+                   const labels = summaryData.map(s => s.semester);
+                   const gpaData = summaryData.map(s => s.gpa);
+
+
+                    if (semesterChart) { semesterChart.destroy(); } // Clear previous instance
+
+                     if (!labels || labels.length === 0) {
+                        chartContainer.style.display = 'none';
+                        return;
+                    }
+                    chartContainer.style.display = 'block';
+
+
+                   // Create gradient for bars
+                    const chartGradient = ctx.createLinearGradient(0, 0, 0, 300);
+                     const accentPrimaryColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-primary').trim();
+                     const accentSecondaryColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-secondary').trim();
+                    chartGradient.addColorStop(0, accentSecondaryColor);
+                    chartGradient.addColorStop(1, accentPrimaryColor);
+
+                   semesterChart = new Chart(ctx, {
+                      type: 'line', // Changed to line chart for trend view
+                      data: {
+                          labels: labels,
+                          datasets: [{
+                              label: 'Semester GPA',
+                              data: gpaData,
+                              borderColor: accentPrimaryColor, // Use solid color for line
+                               backgroundColor: (context) => { // Gradient fill below line
+                                   const chart = context.chart;
+                                   const { ctx, chartArea } = chart;
+                                   if (!chartArea) return null; // If called before area is defined
+                                   const gradientFill = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+                                   gradientFill.addColorStop(0, 'rgba(var(--accent-primary-rgb), 0.05)'); // Transparent at bottom
+                                   gradientFill.addColorStop(1, 'rgba(var(--accent-primary-rgb), 0.4)'); // Semi-transparent at top
+                                   return gradientFill;
+                               },
+                              tension: 0.3, // Smooth curves
+                              fill: true, // Fill area below line
+                              pointBackgroundColor: accentPrimaryColor,
+                              pointBorderColor: getComputedStyle(document.documentElement).getPropertyValue('--bg-secondary').trim(), // Match card background
+                              pointHoverBackgroundColor: '#fff',
+                              pointHoverBorderColor: accentPrimaryColor
+                          }]
+                      },
+                      options: {
+                          responsive: true,
+                          maintainAspectRatio: false,
+                          scales: {
+                              y: {
+                                  beginAtZero: true,
+                                  max: maxPoints,
+                                   grid: { color: getComputedStyle(document.documentElement).getPropertyValue('--border-color') },
+                                   ticks: {
+                                       color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary'),
+                                       stepSize: 0.5,
+                                       // Format tick values
+                                        callback: function(value) { return value.toFixed(1); }
+                                    }
+                              },
+                              x: {
+                                  grid: { display: false },
+                                   ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary') }
+                              }
+                          },
+                          plugins: {
+                              legend: { display: false },
+                               tooltip: {
+                                   backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--bg-secondary'),
+                                   titleColor: getComputedStyle(document.documentElement).getPropertyValue('--text-primary'),
+                                   bodyColor: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary'),
+                                    borderColor: getComputedStyle(document.documentElement).getPropertyValue('--border-color'),
+                                    borderWidth: 1,
+                                    padding: 10,
+                                    displayColors: false, // Don't show color box
+                                     callbacks: {
+                                        label: function(context) {
+                                            return `GPA: ${context.parsed.y.toFixed(2)}`;
+                                        }
+                                    }
+                               }
+                          },
+                           interaction: {
+                              mode: 'index', // Show tooltip for all points on the x-axis
+                              intersect: false
+                          },
+                          hover: {
+                              mode: 'nearest',
+                              intersect: true
+                          }
+                      }
+                  });
+              }
+
+              // Function to update chart colors dynamically on theme change
+              function updateChartColors() {
+                 if (!semesterChart) return;
+                 const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-primary').trim();
+                 const secondaryColor = getComputedStyle(document.documentElement).getPropertyValue('--bg-secondary').trim();
+                 const borderColor = getComputedStyle(document.documentElement).getPropertyValue('--border-color').trim();
+                 const textSecondaryColor = getComputedStyle(document.documentElement).getPropertyValue('--text-secondary').trim();
+                 const textPrimaryColor = getComputedStyle(document.documentElement).getPropertyValue('--text-primary').trim();
+                  const primaryRgb = getComputedStyle(document.documentElement).getPropertyValue('--accent-primary-rgb').trim();
+
+
+                  // Update dataset colors
+                  semesterChart.data.datasets[0].borderColor = primaryColor;
+                  semesterChart.data.datasets[0].pointBackgroundColor = primaryColor;
+                  semesterChart.data.datasets[0].pointBorderColor = secondaryColor;
+                   semesterChart.data.datasets[0].backgroundColor = (context) => {
+                       const chart = context.chart;
+                       const { ctx, chartArea } = chart;
+                       if (!chartArea) return null;
+                       const gradientFill = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+                       gradientFill.addColorStop(0, `rgba(${primaryRgb}, 0.05)`);
+                       gradientFill.addColorStop(1, `rgba(${primaryRgb}, 0.4)`);
+                       return gradientFill;
+                   };
+
+
+                  // Update scale colors
+                  semesterChart.options.scales.y.grid.color = borderColor;
+                  semesterChart.options.scales.y.ticks.color = textSecondaryColor;
+                  semesterChart.options.scales.x.ticks.color = textSecondaryColor;
+
+                  // Update tooltip colors
+                   semesterChart.options.plugins.tooltip.backgroundColor = secondaryColor;
+                   semesterChart.options.plugins.tooltip.titleColor = textPrimaryColor;
+                   semesterChart.options.plugins.tooltip.bodyColor = textSecondaryColor;
+                   semesterChart.options.plugins.tooltip.borderColor = borderColor;
+
+                 // Note: Chart.js might require chart.update() after changing options
+             }
+
+
+            // --- Reset & Modal Functions ---
+            function resetSemesterTab() {
+                semestersContainer.innerHTML = '';
+                addSemester();
+                targetCgpaInput.value = ''; // Also reset target input
+                if (semesterChart) semesterChart.destroy();
+                 console.log("Semester tab reset.");
+            }
+
+            function resetCourseTab() {
+                courseTbody.innerHTML = '';
+                addCourseRow(courseTbody);
+                targetCgpaInput.value = ''; // Also reset target input
+                 console.log("Course tab reset.");
+            }
+
+             function showConfirmationModal(message, callback) {
+                 modalMessage.textContent = message;
+                 resetCallback = callback;
+                 confirmationModal.classList.add('show');
+             }
+
+             function hideConfirmationModal() {
+                 confirmationModal.classList.remove('show');
+                 resetCallback = null;
+             }
+
+
+             // --- Data Persistence & Export ---
+              function saveState() {
+                   const activeTab = document.querySelector('.tab.active')?.getAttribute('data-tab') || 'semester';
+                   const selectedScale = getSelectedGradingScale();
+                   const targetCgpa = targetCgpaInput.value;
+                   const semestersData = [];
+                    semestersContainer.querySelectorAll('.semester-section').forEach(semDiv => {
+                      const semesterNum = semDiv.getAttribute('data-semester');
+                      const courses = [];
+                      semDiv.querySelectorAll('tbody tr').forEach(row => {
+                          courses.push({
+                               code: row.querySelector('.course-code')?.value || '',
+                               name: row.querySelector('.course-name')?.value || '',
+                               credits: row.querySelector('.credit-hours')?.value || '3',
+                               gradePoints: row.querySelector('.grade')?.value || '4.0'
+                          });
+                      });
+                      semestersData.push({ semesterNum, courses });
+                    });
+
+                   const coursesData = [];
+                   courseTbody.querySelectorAll('tr').forEach(row => {
+                      coursesData.push({
+                          code: row.querySelector('.course-code')?.value || '',
+                          name: row.querySelector('.course-name')?.value || '',
+                          credits: row.querySelector('.credit-hours')?.value || '3',
+                          gradePoints: row.querySelector('.grade')?.value || '4.0'
+                      });
+                   });
+
+                   const state = {
+                       activeTab, selectedScale, targetCgpa,
+                       theme: currentTheme, // Save theme
+                       semesters: semestersData,
+                       courses: coursesData
+                   };
+
+                   try {
+                       localStorage.setItem('cgpaAppState', JSON.stringify(state));
+                   } catch (error) { console.error("Error saving state:", error); }
+              }
+
+              function loadState() {
+                   try {
+                      const savedStateJSON = localStorage.getItem('cgpaAppState');
+                      if (!savedStateJSON) {
+                          // Initialize defaults if no saved state
+                           applyTheme(localStorage.getItem('cgpaTheme') || 'theme-dark'); // Load theme pref even if other data missing
+                          addSemester();
+                          addCourseRow(courseTbody);
+                          switchTab('semester');
+                           targetCgpaInput.max = getMaxGradePoints(); // Set initial max for target
+                          return;
+                      }
+
+                      const state = JSON.parse(savedStateJSON);
+
+                      // Restore Theme
+                       applyTheme(state.theme || 'theme-dark');
+
+                      // Restore Grading Scale & Target GPA
+                       if (state.selectedScale && gradingScales[state.selectedScale]) {
+                           gradingScaleSelect.value = state.selectedScale;
+                       }
+                        targetCgpaInput.max = getMaxGradePoints(); // Set max based on loaded scale
+                        targetCgpaInput.value = state.targetCgpa || '';
+
+
+                       // Restore Semesters
+                       semestersContainer.innerHTML = '';
+                       if (state.semesters && state.semesters.length > 0) {
+                           state.semesters.forEach(semData => addSemester(semData));
+                       } else { addSemester(); }
+
+
+                      // Restore Courses Tab
+                      courseTbody.innerHTML = '';
+                       if (state.courses && state.courses.length > 0) {
+                          state.courses.forEach(courseData => addCourseRow(courseTbody, courseData));
+                       } else { addCourseRow(courseTbody); }
+
+                       // This needs to happen *after* rows are added but *before* restoring active tab
+                        updateGradeDropdowns(); // Ensure all dropdowns reflect the loaded scale correctly
+
+
+                      // Restore Active Tab
+                       switchTab(state.activeTab || 'semester');
+
+                       console.log("App state loaded.");
+
+                   } catch (error) {
+                       console.error("Error loading state:", error);
+                       localStorage.removeItem('cgpaAppState'); // Clear corrupted state
+                        // Fallback to defaults
+                        applyTheme('theme-dark');
+                       semestersContainer.innerHTML = '';
+                       courseTbody.innerHTML = '';
+                       addSemester();
+                       addCourseRow(courseTbody);
+                       switchTab('semester');
+                        updateGradeDropdowns();
+                   }
+              }
+
+               function exportDataToCSV(isSemesterView) {
+                    let data = [];
+                    let headers = ["Semester", "Course Code", "Course Name", "Credit Hours", "Grade Points"];
+                    const scaleInfo = gradingScales[getSelectedGradingScale()];
+                    const pointToGrade = (pointsValue) => {
+                        const match = scaleInfo.find(item => parseFloat(item.points) === parseFloat(pointsValue));
+                        return match ? match.grade : 'N/A';
+                    };
+
+                    if (isSemesterView) {
+                        semestersContainer.querySelectorAll('.semester-section').forEach(semDiv => {
+                            const semesterNum = semDiv.getAttribute('data-semester');
+                            semDiv.querySelectorAll('tbody tr').forEach(row => {
+                                const gradePoints = row.querySelector('.grade')?.value || '';
+                                data.push([
+                                    `Semester ${semesterNum}`,
+                                    row.querySelector('.course-code')?.value || '',
+                                    row.querySelector('.course-name')?.value || '',
+                                    row.querySelector('.credit-hours')?.value || '',
+                                     gradePoints // Store points, let user interpret with scale
+                                ]);
+                            });
+                        });
+                    } else {
+                        headers = ["Course Code", "Course Name", "Credit Hours", "Grade Points"]; // No Semester column
+                        courseTbody.querySelectorAll('tr').forEach(row => {
+                             const gradePoints = row.querySelector('.grade')?.value || '';
+                            data.push([
+                                row.querySelector('.course-code')?.value || '',
+                                row.querySelector('.course-name')?.value || '',
+                                row.querySelector('.credit-hours')?.value || '',
+                                gradePoints
+                            ]);
+                        });
+                    }
+
+                    if (data.length === 0) {
+                         alert("No data to export.");
+                         return;
+                    }
+
+                    // Convert points to letter grades if possible for readability (optional)
+                    // data = data.map(row => [...row.slice(0, -1), pointToGrade(row[row.length - 1])]);
+                    // headers[headers.length-1] = "Grade Letter"; // Change header if converting
+
+
+                    let csvContent = "data:text/csv;charset=utf-8,";
+                    csvContent += headers.map(h => `"${h.replace(/"/g, '""')}"`).join(",") + "\r\n"; // Header row
+
+                    data.forEach(row => {
+                        csvContent += row.map(field => `"${(field || '').toString().replace(/"/g, '""')}"`).join(",") + "\r\n";
+                    });
+
+                    const encodedUri = encodeURI(csvContent);
+                    const link = document.createElement("a");
+                    link.setAttribute("href", encodedUri);
+                    link.setAttribute("download", `cgpa_export_${isSemesterView ? 'semesters' : 'courses'}.csv`);
+                    document.body.appendChild(link); // Required for Firefox
+                    link.click();
+                    document.body.removeChild(link);
+              }
+
+        });
+    </script>
+</body>
+</html>

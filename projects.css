@@ -1,0 +1,411 @@
+/* Projects Section CSS */
+.projects-section {
+    position: relative;
+    padding: 4rem 0;
+    overflow: hidden;
+    background: #0d0d0d;
+    color: #fff;
+  }
+  
+  .projects-section .container {
+    position: relative;
+    z-index: 2;
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  .legendary-title {
+    position: relative;
+    text-align: center;
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+    color: #fdbb2d;
+  }
+  
+  .legendary-title .title-icon {
+    margin-right: 0.5rem;
+    color: #f5576c;
+  }
+  
+  .legendary-title .accent-text {
+    color: #f5576c;
+  }
+  
+  .legendary-title .title-particles {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 50px;
+    height: 50px;
+    pointer-events: none;
+  }
+  
+  .section-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #ccc;
+  }
+  
+  .legendary-indicator {
+    text-align: center;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .legendary-indicator .pulse-dot {
+    width: 12px;
+    height: 12px;
+    background: #f5576c;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite ease-in-out;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  
+  .legendary-indicator .indicator-text {
+    font-size: 1rem;
+    color: #fdbb2d;
+  }
+  
+  /* Projects Dashboard Navigation */
+  .projects-dashboard {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+  .projects-nav {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .project-view-toggle {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .project-view-toggle .view-btn {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  
+  .project-view-toggle .view-btn.active {
+    color: #f5576c;
+    transform: scale(1.1);
+  }
+  
+  .project-view-toggle .view-btn:hover {
+    transform: scale(1.1);
+  }
+  
+  .project-view-toggle .view-btn::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222;
+    color: #fff;
+    padding: 3px 6px;
+    font-size: 0.7rem;
+    border-radius: 3px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .project-view-toggle .view-btn:hover::after {
+    opacity: 1;
+  }
+  
+  .project-filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .project-filter {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    padding: 0.6rem 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: background 0.3s ease;
+  }
+  
+  .project-filter.active,
+  .project-filter:hover {
+    background: #f5576c;
+  }
+  
+  .project-filter .btn-glow {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 30px;
+    background: rgba(245, 87, 108, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+  
+  .project-filter:hover .btn-glow {
+    opacity: 1;
+  }
+  
+  /* Projects Grid View */
+  .projects-grid-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .project-card {
+    background: #181818;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+  }
+  
+  .project-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .project-card .card-image {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .project-card .card-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  
+  .project-card:hover .card-image img {
+    transform: scale(1.05);
+  }
+  
+  .project-card .card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .project-card:hover .card-overlay {
+    opacity: 1;
+  }
+  
+  .project-card .card-actions {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .project-card .card-action-btn {
+    background: transparent;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    padding: 0.5rem;
+    color: #fff;
+    font-size: 1.1rem;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  
+  .project-card .card-action-btn:hover {
+    background: #f5576c;
+    transform: scale(1.1);
+  }
+  
+  .project-card .play-now-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #fdbb2d;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #000;
+  }
+  
+  .project-card .card-content {
+    padding: 1rem;
+  }
+  
+  .project-card .card-tags {
+    margin-bottom: 0.5rem;
+  }
+  
+  .project-card .tech-tag {
+    background: #f5576c;
+    padding: 3px 8px;
+    margin-right: 5px;
+    border-radius: 5px;
+    font-size: 0.7rem;
+    display: inline-block;
+  }
+  
+  .project-card .card-title {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: #fdbb2d;
+  }
+  
+  .project-card .card-description {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: #ccc;
+  }
+  
+  .project-card .card-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: #999;
+  }
+  
+  /* Showcase Footer */
+  .projects-showcase-footer {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+  }
+  
+  .showcase-stats {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .showcase-stats .stat-item {
+    text-align: center;
+  }
+  
+  .showcase-stats .stat-value {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #f5576c;
+  }
+  
+  .showcase-stats .stat-label {
+    font-size: 0.8rem;
+    color: #ccc;
+  }
+  
+  .showcase-cta .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    border: 2px solid #fdbb2d;
+    border-radius: 30px;
+    text-decoration: none;
+    color: #fdbb2d;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  
+  .showcase-cta .cta-button:hover {
+    transform: scale(1.05);
+  }
+  
+  .showcase-cta .button-glow {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 30px;
+    background: rgba(253, 187, 45, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+  
+  .showcase-cta .cta-button:hover .button-glow {
+    opacity: 1;
+  }
+  
+  /* Section Background Effects */
+  .section-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  
+  .bg-grid {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, rgba(245, 87, 108, 0.1) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(245, 87, 108, 0.1) 25%, transparent 25%);
+    background-size: 50px 50px;
+    opacity: 0.2;
+  }
+  
+  .bg-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .bg-glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(245,87,108,0.5) 0%, transparent 70%);
+    filter: blur(50px);
+    opacity: 0.5;
+  }
+  

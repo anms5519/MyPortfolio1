@@ -1,0 +1,152 @@
+/* Hero Section CSS */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: radial-gradient(circle at center, #1a1a2e, #16213e);
+    color: #fff;
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 10;
+  }
+  
+  #hero-logo {
+    display: block;
+    margin: 0 auto 1rem;
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+  }
+  
+  .cosmic-bubbles {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .nav-bubble {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  
+  .nav-bubble:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .social-links-hero {
+    margin-bottom: 2rem;
+  }
+  
+  .social-icon-hero {
+    margin: 0 0.5rem;
+    font-size: 1.2rem;
+    color: #fff;
+    transition: color 0.3s ease;
+  }
+  
+  .social-icon-hero:hover {
+    color: #f5576c;
+  }
+  
+  .pulse-btn {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    border: 2px solid #fff;
+    border-radius: 30px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  
+  .pulse-btn:hover {
+    transform: scale(1.05);
+  }
+  
+  .pulse-btn::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 120%;
+    height: 120%;
+    background: rgba(245, 87, 108, 0.3);
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50%;
+    transition: transform 0.5s ease;
+    pointer-events: none;
+  }
+  
+  .pulse-btn:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  /* Animated Background Layers */
+  .animated-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+  }
+  
+  .particle-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+  
+  .cosmic-mist {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(26,26,46,0) 0%, rgba(26,26,46,0.5) 100%);
+    z-index: 3;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2.5rem;
+    }
+    .hero h2 {
+      font-size: 1.5rem;
+    }
+    .nav-bubble {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  

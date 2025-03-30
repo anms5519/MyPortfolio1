@@ -1,0 +1,304 @@
+/* Legendary Resume & Contact Sections CSS */
+
+/* ==================== Resume Section ==================== */
+.resume-section {
+    padding: 80px 0;
+    background: #0d0d0d;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .resume-download h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #ffc107;
+  }
+  .premium-download-btn {
+    display: inline-block;
+    background: #ffc107;
+    color: #0d0d0d;
+    padding: 12px 25px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  .premium-download-btn:hover {
+    background: #ffcd39;
+    transform: scale(1.05);
+  }
+  
+  /* ==================== Contact Section ==================== */
+  .contact-section {
+    padding: 80px 0;
+    background: #111;
+    color: #eee;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-section .container {
+    position: relative;
+    z-index: 2;
+  }
+  .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #ffc107;
+    text-align: center;
+  }
+  .contact-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .contact-grid {
+    flex: 1;
+    min-width: 280px;
+    max-width: 400px;
+  }
+  .contact-info {
+    margin-bottom: 30px;
+  }
+  .contact-info-header h3.cosmic-text {
+    font-size: 1.8rem;
+    color: #ffc107;
+    margin-bottom: 10px;
+  }
+  .contact-tagline {
+    font-size: 1rem;
+    color: #ccc;
+    margin-bottom: 20px;
+  }
+  .contact-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .contact-card {
+    background: #222;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+  .contact-card:hover {
+    transform: translateY(-5px);
+  }
+  .card-icon {
+    font-size: 2rem;
+    color: #ffc107;
+    margin-right: 15px;
+  }
+  .card-content h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: #fff;
+  }
+  .card-content p {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 3px;
+  }
+  .response-time, .time-zone {
+    font-size: 0.8rem;
+    color: #888;
+  }
+  .card-decoration {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    background: rgba(255,193,7,0.2);
+    border-radius: 50%;
+  }
+  
+  /* Contact Form Styles */
+  .contact-form-container {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    background: #1a1a1a;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  }
+  .form-header h3.cosmic-text {
+    font-size: 1.8rem;
+    color: #ffc107;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .form-tagline {
+    font-size: 1rem;
+    color: #ccc;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .form-group {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .form-floating input,
+  .form-floating textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background: #222;
+    color: #eee;
+    outline: none;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+  .form-floating input:focus,
+  .form-floating textarea:focus {
+    border-color: #ffc107;
+  }
+  .form-floating label {
+    position: absolute;
+    top: -8px;
+    left: 15px;
+    background: #1a1a1a;
+    padding: 0 5px;
+    font-size: 0.85rem;
+    color: #ccc;
+  }
+  .focus-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #ffc107;
+    transition: width 0.3s;
+  }
+  .form-floating input:focus + label + .focus-border,
+  .form-floating textarea:focus + label + .focus-border {
+    width: 100%;
+  }
+  .submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: #ffc107;
+    border: none;
+    border-radius: 30px;
+    color: #0d0d0d;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  .submit-btn:hover {
+    background: #ffcd39;
+    transform: scale(1.02);
+  }
+  .cosmic-btn-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background: rgba(255,255,255,0.2);
+    transition: width 0.3s ease;
+  }
+  .submit-btn:hover .cosmic-btn-bg {
+    width: 100%;
+  }
+  .btn-text {
+    position: relative;
+    z-index: 1;
+  }
+  .btn-icon {
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Form Status Messages */
+  .form-status {
+    margin-top: 20px;
+    text-align: center;
+  }
+  .status-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-top: 15px;
+  }
+  .status-message.hidden {
+    display: none;
+  }
+  .success-icon {
+    color: #28a745;
+    font-size: 2rem;
+  }
+  .error-icon {
+    color: #dc3545;
+    font-size: 2rem;
+  }
+  .status-content h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #ffc107;
+  }
+  .status-content p {
+    margin: 0;
+    color: #ccc;
+  }
+  
+  /* Background Effects for Contact Section */
+  .contact-particles,
+  .contact-shapes .shape {
+    position: absolute;
+    pointer-events: none;
+  }
+  .contact-particles {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('path/to/particles.png') center/cover no-repeat;
+    opacity: 0.1;
+    z-index: 1;
+  }
+  .contact-shapes .shape-1 {
+    width: 80px;
+    height: 80px;
+    background: rgba(255,193,7,0.2);
+    border-radius: 50%;
+    top: 10%;
+    left: 5%;
+  }
+  .contact-shapes .shape-2 {
+    width: 100px;
+    height: 100px;
+    background: rgba(255,193,7,0.2);
+    border-radius: 50%;
+    bottom: 15%;
+    right: 10%;
+  }
+  .contact-shapes .shape-3 {
+    width: 60px;
+    height: 60px;
+    background: rgba(255,193,7,0.2);
+    border-radius: 50%;
+    top: 50%;
+    right: 20%;
+  }
+  

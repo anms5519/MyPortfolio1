@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Projects</title>
+    <style>
+        :root {
+            --primary-color: #4ecca3;
+            --secondary-color: #393e46;
+            --dark-color: #232741;
+            --light-color: #eeeeee;
+            --accent-color: #ff7e67;
+            --background-color: #1a1a2e;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --card-hover-transform: translateY(-10px);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--light-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px rgba(78, 204, 163, 0.3);
+        }
+        
+        .subtitle {
+            color: var(--light-color);
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+        
+        .back-link:hover {
+            background-color: var(--primary-color);
+            color: var(--dark-color);
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background-color: var(--dark-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-card:hover {
+            transform: var(--card-hover-transform);
+            box-shadow: 0 15px 40px var(--shadow-color);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary-color);
+        }
+        
+        .project-description {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            flex-grow: 1;
+        }
+        
+        .project-technologies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tech-tag {
+            background-color: rgba(78, 204, 163, 0.2);
+            color: var(--primary-color);
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .project-links {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        
+        .project-links a {
+            flex: 1;
+            display: inline-block;
+            text-align: center;
+            padding: 0.75rem 0;
+            background-color: var(--primary-color);
+            color: var(--dark-color);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .project-links a:hover {
+            background-color: #3db28e;
+            transform: translateY(-2px);
+        }
+        
+        .project-links a.code-link {
+            background-color: var(--secondary-color);
+            color: var(--light-color);
+        }
+        
+        .project-links a.code-link:hover {
+            background-color: #313640;
+        }
+        
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+        
+        .header-line {
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 0 auto 1.5rem;
+            border-radius: 2px;
+        }
+        
+        .category-title {
+            margin: 3rem 0 1.5rem;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            position: relative;
+            padding-left: 1rem;
+            border-left: 4px solid var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Coding Projects</h1>
+            <div class="header-line"></div>
+            <p class="subtitle">A collection of interactive coding projects showcasing various technologies and skills</p>
+            <a href="../index.html" class="back-link">← Back to Portfolio</a>
+        </header>
+        
+        <h2 class="category-title">HTML5 Games</h2>
+        <div class="projects-grid">
+            <!-- Snake Game -->
+            <div class="project-card">
+                <img src="https://placehold.co/600x400/232741/4ecca3?text=Snake+Game" alt="Snake Game" class="project-image">
+                <div class="project-content">
+                    <h3 class="project-title">Snake Game</h3>
+                    <p class="project-description">A classic Snake game built with HTML5 Canvas and JavaScript. Control the snake to eat food and grow longer without hitting the walls or yourself.</p>
+                    <div class="project-technologies">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Canvas API</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="html5-games/snake.html" target="_blank" class="demo-link">Play Game</a>
+                        <a href="#" class="code-link" onclick="openInFrame('html5-games/snake.html'); return false;">Open in Frame</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tetris Game -->
+            <div class="project-card">
+                <img src="https://placehold.co/600x400/232741/0DC2FF?text=Tetris+Game" alt="Tetris Game" class="project-image">
+                <div class="project-content">
+                    <h3 class="project-title">Tetris Game</h3>
+                    <p class="project-description">The classic Tetris game implemented in JavaScript with HTML5 Canvas. Stack the falling blocks and clear lines to score points.</p>
+                    <div class="project-technologies">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Canvas API</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="html5-games/tetris.html" target="_blank" class="demo-link">Play Game</a>
+                        <a href="#" class="code-link" onclick="openInFrame('html5-games/tetris.html'); return false;">Open in Frame</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="category-title">Utility Applications</h2>
+        <div class="projects-grid">
+            <!-- CGPA Calculator -->
+            <div class="project-card">
+                <img src="https://placehold.co/600x400/232741/FF8E0D?text=CGPA+Calculator" alt="CGPA Calculator" class="project-image">
+                <div class="project-content">
+                    <h3 class="project-title">CGPA Calculator</h3>
+                    <p class="project-description">A comprehensive CGPA calculator for university students. Calculate your GPA semester-wise or for individual courses with a user-friendly interface.</p>
+                    <div class="project-technologies">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Responsive Design</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="cgpa-calculator/index.html" target="_blank" class="demo-link">Open App</a>
+                        <a href="#" class="code-link" onclick="openInFrame('cgpa-calculator/index.html'); return false;">Open in Frame</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Academic Report Creator -->
+            <div class="project-card">
+                <img src="https://placehold.co/600x400/232741/F538FF?text=Report+Creator" alt="Academic Report Creator" class="project-image">
+                <div class="project-content">
+                    <h3 class="project-title">Academic Report Creator</h3>
+                    <p class="project-description">A tool to create professional academic lab reports and assignments with customizable templates, structured sections, and export functionality.</p>
+                    <div class="project-technologies">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">DOM Manipulation</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="lab-report-creator/index.html" target="_blank" class="demo-link">Open App</a>
+                        <a href="#" class="code-link" onclick="openInFrame('lab-report-creator/index.html'); return false;">Open in Frame</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Frame container (hidden by default) -->
+    <div id="frame-container" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); z-index: 1000; padding: 20px; box-sizing: border-box;">
+        <div style="position: relative; width: 100%; height: 100%; background-color: white; border-radius: 10px; overflow: hidden;">
+            <button id="close-frame" style="position: absolute; top: 10px; right: 10px; background-color: #ff5555; color: white; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 18px; cursor: pointer; z-index: 1001;">×</button>
+            <iframe id="project-frame" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
+    
+    <script>
+        // Function to open a project in a frame
+        function openInFrame(projectUrl) {
+            const frame = document.getElementById('project-frame');
+            frame.src = projectUrl;
+            document.getElementById('frame-container').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+        
+        // Close frame when close button is clicked
+        document.getElementById('close-frame').addEventListener('click', function() {
+            document.getElementById('frame-container').style.display = 'none';
+            document.getElementById('project-frame').src = '';
+            document.body.style.overflow = 'auto'; // Allow scrolling again
+        });
+        
+        // Also close when clicking outside the frame
+        document.getElementById('frame-container').addEventListener('click', function(e) {
+            if (e.target === this) {
+                document.getElementById('frame-container').style.display = 'none';
+                document.getElementById('project-frame').src = '';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html> 

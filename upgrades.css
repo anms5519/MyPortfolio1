@@ -1,0 +1,52 @@
+/* --- Dark Mode Styles --- */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+  
+  #darkModeToggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #f5576c;
+    border: none;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: background 0.3s ease;
+  }
+  
+  #darkModeToggle:hover {
+    background: #fdbb2d;
+  }
+  
+  /* --- Microinteraction for Buttons --- */
+  .btn {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* --- Parallax Effect Placeholder --- */
+  .parallax {
+    will-change: transform;
+  }
+  
+  /* --- Additional Legendary Touches --- */
+  /* Example: Animated gradient text for section titles */
+  .legendary-title {
+    background: linear-gradient(45deg, #f5576c, #fdbb2d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 5s ease infinite;
+  }
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  

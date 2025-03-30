@@ -1,0 +1,95 @@
+/* Legendary Certificate Modal CSS */
+#certificate-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    animation: fadeIn 0.3s;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .certificate-modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    animation: slideIn 0.5s;
+    position: relative;
+  }
+  
+  @keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  .close-btn {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+  }
+  
+  .close-btn:hover,
+  .close-btn:focus {
+    color: #000;
+    text-decoration: none;
+  }
+  
+  .certificate-modal-header h3 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #333;
+  }
+  
+  .certificate-modal-header p {
+    font-size: 0.9rem;
+    color: #777;
+    margin: 5px 0 15px;
+  }
+  
+  .certificate-image-container {
+    text-align: center;
+  }
+  
+  .certificate-image-container img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+  
+  .certificate-modal-footer {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .certificate-btn {
+    display: inline-block;
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    margin: 10px 5px 0;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .certificate-btn:hover {
+    background-color: #0056b3;
+  }
+  

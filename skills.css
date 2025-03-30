@@ -1,0 +1,241 @@
+/* Legendary Skills Section CSS */
+#skills {
+    padding: 80px 0;
+    background: #f0f4f8;
+    position: relative;
+  }
+  
+  #skills .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  #skills .section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #333;
+    position: relative;
+  }
+  
+  /* Category Tabs */
+  .skill-category-tabs {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .skill-category-tabs .skill-tab {
+    background: #fff;
+    border: 2px solid #007BFF;
+    color: #007BFF;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+  .skill-category-tabs .skill-tab.active,
+  .skill-category-tabs .skill-tab:hover {
+    background: #007BFF;
+    color: #fff;
+  }
+  
+  /* Display Toggle */
+  .skill-display-toggle {
+    text-align: center;
+    margin: 20px 0 40px;
+  }
+  .skill-display-toggle .display-btn {
+    background: #fff;
+    border: 2px solid #28a745;
+    color: #28a745;
+    padding: 8px 14px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+    border-radius: 50%;
+  }
+  .skill-display-toggle .display-btn.active,
+  .skill-display-toggle .display-btn:hover {
+    background: #28a745;
+    color: #fff;
+  }
+  
+  /* Skills Displays Container */
+  .skills-displays > div {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  .skills-displays > div.active {
+    display: block;
+  }
+  
+  /* 1. Grid Display */
+  .skills-grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  .skill-card {
+    background: #fff;
+    width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  .skill-card:hover {
+    transform: translateY(-5px);
+  }
+  .skill-card-inner {
+    padding: 20px;
+  }
+  .skill-icon i {
+    font-size: 2.5rem;
+    color: #007BFF;
+    margin-bottom: 15px;
+    display: block;
+    text-align: center;
+  }
+  .skill-info {
+    text-align: center;
+  }
+  .skill-name {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  .skill-level {
+    background: #e9ecef;
+    border-radius: 20px;
+    height: 8px;
+    margin: 10px 0;
+    overflow: hidden;
+  }
+  .skill-progress {
+    height: 100%;
+    background: #007BFF;
+    border-radius: 20px;
+  }
+  .skill-percentage {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  .skill-details {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  .skill-details p {
+    margin-bottom: 10px;
+  }
+  .skill-technologies span {
+    background: #f8f9fa;
+    color: #007BFF;
+    padding: 4px 8px;
+    margin: 2px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+  }
+  
+  /* 2. Chart Display */
+  .skills-chart-display {
+    text-align: center;
+  }
+  .chart-container {
+    position: relative;
+    margin: 0 auto;
+    max-width: 600px;
+  }
+  .chart-wrapper {
+    padding: 20px;
+  }
+  .chart-controls {
+    margin-top: 20px;
+  }
+  .chart-types, .chart-categories {
+    margin: 10px 0;
+  }
+  .chart-types button,
+  .chart-categories button {
+    background: #fff;
+    border: 2px solid #6c757d;
+    color: #6c757d;
+    padding: 8px 12px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .chart-types button.active,
+  .chart-categories button.active,
+  .chart-types button:hover,
+  .chart-categories button:hover {
+    background: #6c757d;
+    color: #fff;
+  }
+  
+  /* 3. Timeline Display */
+  .skills-timeline {
+    position: relative;
+    padding: 40px 20px;
+  }
+  .timeline-track {
+    position: relative;
+    margin: 0 auto;
+    padding: 20px 0;
+    max-width: 800px;
+    border-left: 3px solid #007BFF;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+    padding-left: 30px;
+  }
+  .timeline-point {
+    position: absolute;
+    left: -12px;
+    top: 5px;
+    width: 20px;
+    height: 20px;
+    background: #007BFF;
+    border-radius: 50%;
+  }
+  .timeline-content {
+    background: #fff;
+    padding: 15px 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  .timeline-year {
+    font-size: 0.9rem;
+    color: #888;
+  }
+  .timeline-content h3 {
+    margin-top: 5px;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  .timeline-content p {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 10px 0;
+  }
+  .timeline-skills span {
+    background: #e9ecef;
+    color: #007BFF;
+    padding: 4px 8px;
+    margin: 2px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+  }
+  
+  /* Fade In Animation */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
